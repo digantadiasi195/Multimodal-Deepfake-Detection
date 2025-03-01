@@ -1,7 +1,7 @@
 # Multimodal DeepFake Classification
 
-## 📌 Project Overview
-This project focuses on **Fine-Grained Multimodal DeepFake Classification** using the **FakeAVCeleb** dataset. The model is designed to classify videos into four categories:
+## Project Overview
+This project focuses on **Multimodal DeepFake Classification** using the **FakeAVCeleb** dataset. The model is designed to classify videos into four categories:
 - **RealVideo-RealAudio**
 - **RealVideo-FakeAudio**
 - **FakeVideo-RealAudio**
@@ -36,7 +36,7 @@ FakeAVCeleb/
 
 ---
 
-## 📦 Dependencies
+## Dependencies
 Install required packages using:
 ```bash
 pip install -r requirements.txt
@@ -46,7 +46,7 @@ Ensure you have **PyTorch**, **MoviePy**, **TorchAudio**, and **OpenCV** install
 
 ---
 
-## 🚀 Training the Model
+## Training the Model
 To train the model, run:
 ```bash
 python train.py
@@ -59,10 +59,10 @@ This will:
 
 ---
 
-## 📊 Model Evaluation & Results
+## Model Evaluation & Results
 After training, the model is evaluated on the **test dataset**.
 
-### ✅ **Final Training Metrics**
+### **Final Training Metrics**
 ```
 Epoch [15/15] - Loss: 0.1584, Train Acc: 93.78%
 ```
@@ -78,26 +78,25 @@ Epoch [15/15] - Loss: 0.1584, Train Acc: 93.78%
 | **Macro Avg**              | 0.922083  | 0.95237 | 0.94926  | 8000    |
 | **Weighted Avg**           | 0.922083  | 0.95237 | 0.94926  | 8000    |
 
-### 📉 **Confusion Matrix**
+### **Confusion Matrix**
 ![Confusion Matrix](summary/weight/confusion_matrix.png)
 
-### 📜 **Logs & Reports**
+### **Logs & Reports**
 - [Classification Report](summary/weight/classification_report.csv)
 - [Training Loss & Accuracy Plots](summary/weight/training_plot.png)
 
 ---
-
-## 💡 Future Work
+## Future Work
 - Implementing **Larger Transformer-Based Models** (e.g., ViT, Wav2Vec).
 - Using **Pretrained Video Models** (e.g., SlowFast, TimeSformer).
 - Improving **Cross-Modal Attention** mechanisms.
 
 ---
 
-## 🤝 Contributing
+## Contributing
 Feel free to raise issues or contribute via pull requests.
 
 ---
 
-## 📜 License
+## License
 MIT License © 2025
