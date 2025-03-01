@@ -1,4 +1,4 @@
-# Fine-Grained Multimodal DeepFake Classification
+# Multimodal DeepFake Classification
 
 A deep learning-based **multimodal DeepFake detection** model that classifies videos into **four categories**:
 - **Real Video - Real Audio**
