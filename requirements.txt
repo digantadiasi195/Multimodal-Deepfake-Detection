@@ -3,9 +3,9 @@ torch>=2.1.0
 torchvision>=0.16.0
 torchaudio>=2.1.0
 opencv-python>=4.9.0
-moviepy>=1.0.3
+moviepy==0.2.3.5  # Try this older stable version
 pandas>=2.1.4
 matplotlib>=3.8.2
-seaborn>=0.13.2
+seaborn>=3.8.2
 Pillow>=10.1.0
 requests>=2.31.0
