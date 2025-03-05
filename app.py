@@ -8,7 +8,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from PIL import Image
-from network.graph_video_audio_model import GAT_video_audio
 import torchaudio
 
 # Fallback for missing imports
@@ -141,7 +140,7 @@ def main():
         # **Extract Frames**
         st.subheader("🖼️ Video Frame Analysis")
         if uploaded_frames and len(uploaded_frames) >= 4:
-            frames_tensor = extract_frames_from_video(None, frames=[f.name for f in uploaded_frames])
+            frames_tensor = extract_frames_from_video(None, frames=[f"temp/{f.name}" for f in uploaded_frames])
             for i, frame_file in enumerate(uploaded_frames):
                 with open(f"temp/frame_{i}.png", "wb") as f:
                     f.write(frame_file.getbuffer())
@@ -239,10 +238,11 @@ def sidebar():
     </div>
     """, unsafe_allow_html=True)
     st.sidebar.markdown("### 🤖 Model Insights")
-    try:
-        st.sidebar.image("dataset/image.png", use_container_width=True)
-    except FileNotFoundError:
-        st.sidebar.warning("Image not found. Please add 'dataset/image.png'.")
+    image_path = "dataset/image.png"
+    if os.path.exists(image_path):
+        st.sidebar.image(image_path, use_container_width=True)
+    else:
+        st.sidebar.warning("Image 'dataset/image.png' not found in the repository. Please add it or update the path.")
     st.sidebar.markdown("""
     #### Technical Details
     - **Architecture:** Graph Attention Networks
