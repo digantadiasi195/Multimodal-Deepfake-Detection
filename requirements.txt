@@ -10,3 +10,4 @@ torchaudio
 moviepy==1.0.3
 imageio[ffmpeg]  # Fixes ffmpeg dependency for moviepy
 pillow
+torchsummary  
