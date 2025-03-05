@@ -10,6 +10,10 @@ import seaborn as sns
 from PIL import Image
 import torchaudio
 
+from network.graph_video_audio_model import GAT_video_audio
+from dataset.video_frame_extraction import extract_frames_from_video
+from dataset.audio_extraction import extract_audio_from_video
+
 # Fallback for missing imports
 cv2 = None
 mp = None
