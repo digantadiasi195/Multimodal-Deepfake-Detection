@@ -1,9 +1,12 @@
-streamlit>=1.29.0
-torch>=2.1.0
-torchvision>=0.16.0
-torchaudio>=2.1.0
-pandas>=2.1.4
-matplotlib>=3.8.2
-seaborn>=0.13.2
-Pillow>=10.1.0
-requests>=2.31.0
+streamlit
+numpy
+pandas
+matplotlib
+seaborn
+opencv-python-headless  # Fix for cv2 import issue
+torch
+torchvision
+torchaudio
+moviepy>=1.0.3
+pillow
+
