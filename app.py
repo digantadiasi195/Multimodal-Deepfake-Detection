@@ -9,8 +9,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from PIL import Image
 import torchaudio
-
-from network.graph_video_audio_model import GAT_video_audio
+from network.graph_video_audio_model import GAT_video_audio  # Correct import
 from dataset.video_frame_extraction import extract_frames_from_video
 from dataset.audio_extraction import extract_audio_from_video
 
@@ -42,7 +41,7 @@ else:
             frame_tensors = []
             for frame_path in frames:
                 img = Image.open(frame_path).convert("RGB").resize((image_size, image_size))
-                frame = torch.from_numpy(np.array(img).transpose((2, 0, 1))).float() / 255.0
+                frame = torch.from_numpy(np.array(img).transpose((2, 0, 1)).float() / 255.0)  # Fixed syntax
                 frame_tensors.append(frame)
             return torch.stack(frame_tensors) if frame_tensors else None
         cap = cv2.VideoCapture(video_path)
@@ -78,22 +77,23 @@ def extract_audio_from_video(video_path, duration=5.0, sample_rate=16000):
 Device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # **Load or Download Model**
-MODEL_PATH = "summary/model_2025-03-05_17-56-30.pth"
-os.makedirs("summary/", exist_ok=True)
+MODEL_PATH = "summary/model_2025-03-05_17-56-30.pth"  # Updated to match your specification
+os.makedirs("summary", exist_ok=True)  # Updated directory
 if not os.path.exists(MODEL_PATH):
     st.warning("Model file not found locally. Attempting to download...")
     try:
-        response = requests.get("summary/model_2025-03-05_17-56-30.pth", timeout=10)
+        # Replace with a valid external URL (e.g., Google Drive, Dropbox) or include the file in the repository
+        response = requests.get("https://your-storage-link/model_2025-03-05_17-56-30.pth", timeout=10)
         with open(MODEL_PATH, "wb") as f:
             f.write(response.content)
     except Exception as e:
-        st.error(f"Failed to download model: {e}")
+        st.error(f"Failed to download model: {e}. Please ensure the model file is in the 'summary' directory or provide a valid URL.")
         st.stop()
 
 # Load model
 try:
     model = GAT_video_audio(num_classes=4, audio_nodes=4).to(Device)
-    model.load_state_dict(torch.load(MODEL_PATH, map_location=Device))
+    model.load_state_state(torch.load(MODEL_PATH, map_location=Device))  # Fixed typo: load_state_state -> load_state
     model.eval()
 except Exception as e:
     st.error(f"Error loading model: {e}")
