@@ -7,6 +7,6 @@ opencv-python-headless  # Fix for cv2 import issue
 torch
 torchvision
 torchaudio
-moviepy>=1.0.3
+moviepy==1.0.3
 imageio[ffmpeg]  # Fixes ffmpeg dependency for moviepy
 pillow
