@@ -76,7 +76,7 @@ Device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # **Load or Download Model**
 MODEL_PATH = "summary/model_2025-03-05_17-56-30.pth"
-os.makedirs("summary/weight", exist_ok=True)
+os.makedirs("summary/", exist_ok=True)
 if not os.path.exists(MODEL_PATH):
     st.warning("Model file not found locally. Attempting to download...")
     try:
