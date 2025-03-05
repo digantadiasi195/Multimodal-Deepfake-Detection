@@ -75,12 +75,12 @@ def extract_audio_from_video(video_path, duration=5.0, sample_rate=16000):
 Device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # **Load or Download Model**
-MODEL_PATH = "summary/weight/model_2025-03-05_17-56-30.pth"
+MODEL_PATH = "summary/model_2025-03-05_17-56-30.pth"
 os.makedirs("summary/weight", exist_ok=True)
 if not os.path.exists(MODEL_PATH):
     st.warning("Model file not found locally. Attempting to download...")
     try:
-        response = requests.get("https://your-storage-link/model_2025-03-05_17-56-30.pth", timeout=10)
+        response = requests.get("summary/model_2025-03-05_17-56-30.pth", timeout=10)
         with open(MODEL_PATH, "wb") as f:
             f.write(response.content)
     except Exception as e:
