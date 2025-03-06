@@ -1,4 +1,4 @@
-#app.py
+# app.py
 import streamlit as st
 import torch
 import torch.nn.functional as F
@@ -11,6 +11,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from PIL import Image
+import shutil
+import time
 from network.graph_video_audio_model import GAT_video_audio
 from dataset.video_frame_extraction import extract_frames_from_video
 from dataset.audio_extraction import extract_audio_from_video
@@ -19,7 +21,7 @@ from dataset.audio_extraction import extract_audio_from_video
 Device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # **Load Pre-trained Model**
-MODEL_PATH = "summary/model_2025-03-05_17-56-30.pth"
+MODEL_PATH = "summary/model_2025-03-06_15-35-41.pth"
 num_classes = 4
 
 # Load model
@@ -79,6 +81,22 @@ st.markdown("""
         border-radius: 10px;
         padding: 15px;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    /* Add custom styling for st.metric text */
+    div[data-testid="stMetricLabel"] p {
+        color: #2c3e50 !important; /* Darker color for the label */
+        font-weight: bold;
+    }
+    
+    div[data-testid="stMetricValue"] div {
+        color: #2c3e50 !important; /* Darker color for the value */
+        font-weight: bold;
+    }
+    
+    div[data-testid="stMetricDelta"] span {
+        color: #27ae60 !important; /* Keep delta green but ensure it's readable */
+        font-weight: bold;
     }
     
     .stFileUploader {
@@ -167,8 +185,9 @@ def main():
         # **Ensure Temp Directory Exists**
         os.makedirs("temp", exist_ok=True)
         
-        # **Save Uploaded File**
-        video_path = f"temp/{uploaded_file.name}"
+        # **Save Uploaded File with Unique Timestamp**
+        timestamp = time.time()
+        video_path = f"temp/{timestamp}_{uploaded_file.name}"
         with open(video_path, "wb") as f:
             f.write(uploaded_file.getbuffer())
 
@@ -201,9 +220,6 @@ def main():
         st.subheader("🎵 Audio Analysis")
         audio_waveform = extract_audio_from_video(video_path)
         if audio_waveform is not None:
-            # Debug: Print audio shape
-            st.write(f"Audio waveform shape: {audio_waveform.shape}")
-            
             # Convert stereo to mono
             if audio_waveform.dim() > 1 and audio_waveform.size(0) == 2:
                 audio_waveform = audio_waveform.mean(dim=0)
@@ -258,10 +274,10 @@ def main():
                     # Convert stereo to mono for model input
                     if audio_waveform.dim() > 1 and audio_waveform.size(0) == 2:
                         audio_waveform = audio_waveform.mean(dim=0)
-                    audio_input = audio_waveform.unsqueeze(0).to(Device)  # Shape: (1, audio_samples)
+                    audio_input = audio_waveform.unsqueeze(0).to(Device)
                     outputs = model(video_input, audio_input)
 
-                # **Get Prediction** (Adjust based on model output structure)
+                # **Get Prediction**
                 if isinstance(outputs, tuple) and len(outputs) >= 1:
                     probabilities = F.softmax(outputs[0], dim=1).cpu().numpy().flatten()
                 else:
@@ -272,7 +288,7 @@ def main():
 
                 # Results Display with Advanced Layout
                 st.markdown("<h2 style='text-align: center;'>🎭 Detection Results</h2>", unsafe_allow_html=True)
-                with st.container():  # Use container to ensure proper rendering
+                with st.container():
                     st.markdown(f"<div class='result-box'>", unsafe_allow_html=True)
                     
                     # Detailed Result Columns
@@ -292,6 +308,7 @@ def main():
                         st.markdown(f"<p style='color: {risk_color}; font-weight: bold;'>🚨 Risk Level: {risk_levels[risk_index]}</p>", unsafe_allow_html=True)
 
                     with col2:
+                        plt.clf()  # Clear previous figure
                         fig, ax = plt.subplots(figsize=(6, 4), facecolor='#f4f6f7')
                         sns.barplot(x=class_names, y=probabilities, ax=ax, palette="viridis")
                         ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right')
@@ -299,6 +316,7 @@ def main():
                         ax.set_ylabel("Probability")
                         plt.tight_layout()
                         st.pyplot(fig)
+                        plt.close(fig)  # Close figure to free memory
 
                     # Download Button
                     st.download_button(
@@ -314,6 +332,10 @@ def main():
                     )
                     
                     st.markdown("</div>", unsafe_allow_html=True)
+
+        # **Clean up temp directory after analysis**
+        shutil.rmtree("temp")
+        os.makedirs("temp", exist_ok=True)
 
 # **Sidebar Configuration**
 def sidebar():
