@@ -1,13 +1,16 @@
-streamlit
-numpy
-pandas
-matplotlib
-seaborn
-opencv-python-headless  # Fix for cv2 import issue
-torch
-torchvision
-torchaudio
+streamlit==1.32.0
+numpy==1.26.4
+pandas==2.2.1
+matplotlib==3.8.3
+seaborn==0.13.2
+opencv-python-headless==4.9.0.80
+torch==2.4.0
+torchvision==0.19.0
+torchaudio==2.4.0
 moviepy==1.0.3
-imageio[ffmpeg]  # Fixes ffmpeg dependency for moviepy
-pillow
-torchsummary  
+imageio==2.33.1
+imageio-ffmpeg==0.4.9
+pillow==10.2.0
+networkx==3.2.1
+nest_asyncio==1.6.0
+torchsummary==1.5.1
