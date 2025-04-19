@@ -25,7 +25,7 @@ from dataset.audio_extraction import extract_audio_from_video
 Device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # Load Pre-trained Model
-MODEL_PATH = "summary/weight/model_2025-03-06_15-35-41.pth"
+MODEL_PATH = "summary/model_2025-03-06_15-35-41.pth"
 num_classes = 4
 
 # Load model
