@@ -77,13 +77,6 @@ Epoch [15/15] - Loss: 0.1584, Train Acc: 93.78%
 | **Macro Avg**              | 0.922083  | 0.95237 | 0.94926  | 8000    |
 | **Weighted Avg**           | 0.922083  | 0.95237 | 0.94926  | 8000    |
 
-
----
-## Future Work
-- Implementing **Larger Transformer-Based Models** (e.g., ViT, Wav2Vec).
-- Using **Pretrained Video Models** (e.g., SlowFast, TimeSformer).
-- Improving **Cross-Modal Attention** mechanisms.
-
 ---
 
 ## Contributing
