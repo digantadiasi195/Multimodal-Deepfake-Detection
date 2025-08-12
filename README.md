@@ -78,8 +78,6 @@ Epoch [15/15] - Loss: 0.1584, Train Acc: 93.78%
 | **Macro Avg**              | 0.922083  | 0.95237 | 0.94926  | 8000    |
 | **Weighted Avg**           | 0.922083  | 0.95237 | 0.94926  | 8000    |
 
-### **Confusion Matrix**
-![Confusion Matrix](summary/weight/confusion_matrix.png)
 
 ### **Logs & Reports**
 - [Classification Report](summary/weight/classification_report.csv)
