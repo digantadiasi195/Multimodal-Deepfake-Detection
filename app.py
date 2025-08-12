@@ -318,13 +318,13 @@ def process_video(video_path):
         with col1:
             st.video(video_path)
         with col2:
-            st.success("✅ Video Uploaded Successfully!")
-            with st.expander("🔍 Analysis Overview", expanded=True):
+            st.success("Video Uploaded Successfully!")
+            with st.expander("Analysis Overview", expanded=True):
                 st.write("• Frame Extraction: 4 key frames")
                 st.write("• Audio Analysis: Waveform & Spectrogram")
                 st.write("• AI Model: Graph Attention Network")
         
-        st.subheader("🖼️ Video Frame Analysis")
+        st.subheader("🖼Video Frame Analysis")
         frames_tensor = extract_frames_from_video(video_path, num_frames=4, image_size=128)
         frame_cols = st.columns(4)
         for i, col in enumerate(frame_cols):
@@ -358,7 +358,7 @@ def process_video(video_path):
             st.pyplot(fig_spec)
             plt.close(fig_spec)
         else:
-            st.warning("⚠️ No valid audio detected! Please ensure the video contains audio.")
+            st.warning("⚠No valid audio detected! Please ensure the video contains audio.")
         
         return frames_tensor, audio_waveform
     
@@ -369,7 +369,7 @@ def process_video(video_path):
 # Function to Run Detection
 def run_detection(frames_tensor, audio_waveform):
     try:
-        with st.spinner('🚀 Running Advanced AI Analysis...'):
+        with st.spinner('Running Advanced AI Analysis...'):
             with torch.no_grad():
                 video_input = frames_tensor.unsqueeze(0).to(Device)
                 if audio_waveform.dim() > 1 and audio_waveform.size(0) == 2:
@@ -406,12 +406,12 @@ def run_detection(frames_tensor, audio_waveform):
                 cross_modal_importance
             ]
 
-            st.markdown("<h2 style='text-align: center;'>🎭 Detection Results</h2>", unsafe_allow_html=True)
+            st.markdown("<h2 style='text-align: center;'>Detection Results</h2>", unsafe_allow_html=True)
             with st.container():
                 st.markdown(f"<div class='result-box'>", unsafe_allow_html=True)
                 col1, col2 = st.columns(2)
                 with col1:
-                    st.metric(label="🏷️ Predicted Category", value=class_names[predicted_class], delta=f"{confidence:.2f}% Confidence")
+                    st.metric(label="🏷Predicted Category", value=class_names[predicted_class], delta=f"{confidence:.2f}% Confidence")
                     st.progress(int(confidence))
                 with col2:
                     fig, ax = plt.subplots(figsize=(6, 4))
@@ -423,7 +423,7 @@ def run_detection(frames_tensor, audio_waveform):
                     st.pyplot(fig)
                     plt.close(fig)
 
-                st.subheader("🔍 Feature Importance")
+                st.subheader("Feature Importance")
                 fig_imp, ax_imp = plt.subplots(figsize=(8, 4))
                 ax_imp.barh(features, importance, color=['#1e90ff', '#ff4500', '#32cd32', '#f39c12'])
                 ax_imp.set_title("Contribution of Different Modalities")
@@ -435,7 +435,7 @@ def run_detection(frames_tensor, audio_waveform):
                 plt.close(fig_imp)
 
                 st.download_button(
-                    "📥 Download Detailed Report", 
+                    "Download Detailed Report", 
                     data=pd.DataFrame({"Class": class_names, "Probability": [f"{p:.4f}" for p in probabilities]}).to_csv(index=False).encode("utf-8"),
                     file_name="deepfake_detection_report.csv",
                     mime="text/csv",
@@ -457,7 +457,7 @@ def main():
         -webkit-text-fill-color: transparent;
         text-align: center;
         margin-bottom: 20px;
-    ">🛡️ Multimodal Deepfake Detection System</h1>
+    ">Multimodal Deepfake Detection System</h1>
     """, unsafe_allow_html=True)
     
     st.markdown("""
@@ -467,7 +467,7 @@ def main():
     """, unsafe_allow_html=True)
 
     uploaded_file = st.file_uploader(
-        "📤 Upload Video", 
+        "Upload Video", 
         type=["mp4", "avi", "mov"], 
         help="Upload a video file for deepfake analysis (Max 50MB)"
     )
@@ -495,7 +495,7 @@ def main():
                 col_analyze, col_explain = st.columns([1, 1])
                 with col_analyze:
                     analyze_btn = st.button(
-                        "🔍 Run DeepFake Detection",
+                        "Run DeepFake Detection",
                         help="Initiate comprehensive multimodal analysis",
                         key="fancy_analyze_button",
                         use_container_width=True
@@ -507,7 +507,7 @@ def main():
                                 padding: 15px; 
                                 text-align: center;
                                 border: 2px solid #1e90ff;">
-                    🤖 Powered by GNN for precise video and audio analysis
+                    Powered by GNN for precise video and audio analysis
                     </div>
                     """, unsafe_allow_html=True)
 
@@ -534,7 +534,7 @@ def sidebar():
         border-radius: 12px;
         margin-bottom: 20px;
     ">
-    <h2 style="color: white; margin: 0;">🛡️ DeepFake Guardian</h2>
+    <h2 style="color: white; margin: 0;">🛡DeepFake Guardian</h2>
     </div>
     """, unsafe_allow_html=True)
     
@@ -572,7 +572,7 @@ def sidebar():
     - **Inference Time:** ~1.2s (on GPU)
     """)
     
-    st.sidebar.markdown("### ⚠️ Disclaimer")
+    st.sidebar.markdown("### Disclaimer")
     with st.sidebar.expander("Important Notes"):
         st.write("- Results are probabilistic")
         st.write("- Not a definitive judgment")
@@ -584,8 +584,8 @@ def sidebar():
     <div class="developer-section">
         <h3>👤 Developer</h3>
         <p><strong>Diganta Diasi</strong></p>
-        <p>📧 <a href="https://www.linkedin.com/in/digantadiasi/">Contact</a></p>
-        <p>📅 <strong>Updated:</strong> March 05, 2025</p>
+        <p><a href="https://www.linkedin.com/in/digantadiasi/">Contact</a></p>
+        <p><strong>Updated:</strong> March 05, 2025</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -593,3 +593,4 @@ def sidebar():
 if __name__ == "__main__":
     sidebar()
     main()
+
