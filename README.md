@@ -29,7 +29,6 @@ FakeAVCeleb/
 │   ├── training_logs/  # Stores logs & evaluation reports
 │
 ├── train.py  # Main training script
-├── steps.py  # Script to test single video/audio processing
 ├── requirements.txt  # Python dependencies
 ├── README.md  # Project documentation
 ```
