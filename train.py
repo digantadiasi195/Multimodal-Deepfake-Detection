@@ -25,7 +25,7 @@ from network.graph_video_audio_model import GAT_video_audio
 
 # **Set Device (CPU/GPU)**
 Device = "cuda" if torch.cuda.is_available() else "cpu"
-print(f"✅ Using device: {Device}")
+print(f"Using device: {Device}")
 
 # **Define dataset paths**
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     # **Track loss & accuracy**
     train_losses, train_accuracies = [], []
 
-    print(f"✅ Training on {Device}. Model will be saved at: {model_save_path}")
+    print(f"Training on {Device}. Model will be saved at: {model_save_path}")
 
     # **Training loop**
     for epoch in range(epochs):
@@ -98,7 +98,7 @@ if __name__ == "__main__":
             try:
                 video, audio, labels = batch
             except Exception as e:
-                print(f"⚠️ Skipping batch due to error: {e}")
+                print(f"Skipping batch due to error: {e}")
                 continue  # Skip invalid batches
 
             video, audio, labels = video.to(Device), audio.to(Device), labels.to(Device)
@@ -128,14 +128,14 @@ if __name__ == "__main__":
         if (epoch + 1) % 2 == 0:
             checkpoint_path = os.path.join(model_dir, f"model_epoch_{epoch+1}.pth")
             torch.save(model.state_dict(), checkpoint_path)
-            print(f"✅ Model checkpoint saved at {checkpoint_path}")
+            print(f"Model checkpoint saved at {checkpoint_path}")
 
     # **Save final trained model**
     torch.save(model.state_dict(), model_save_path)
-    print(f"✅ Training complete. Final model saved at {model_save_path}")
+    print(f"Training complete. Final model saved at {model_save_path}")
 
     # **Evaluation on Test Data**
-    print("🔍 Running Model Evaluation...")
+    print("Running Model Evaluation...")
     model.eval()
     all_preds = []
     all_labels = []
@@ -145,7 +145,7 @@ if __name__ == "__main__":
             try:
                 video, audio, labels = batch
             except Exception as e:
-                print(f"⚠️ Skipping batch due to error: {e}")
+                print(f"Skipping batch due to error: {e}")
                 continue
 
             video, audio, labels = video.to(Device), audio.to(Device), labels.to(Device)
@@ -166,7 +166,7 @@ if __name__ == "__main__":
     # **Save the Classification Report as CSV**
     report_csv_path = os.path.join(model_dir, f"classification_report_{time}.csv")
     df_report.to_csv(report_csv_path, index=True)
-    print(f"✅ Classification report saved at: {report_csv_path}")
+    print(f"Classification report saved at: {report_csv_path}")
 
     # **Confusion Matrix**
     conf_matrix = confusion_matrix(all_labels, all_preds)
@@ -180,6 +180,6 @@ if __name__ == "__main__":
     plt.savefig(conf_matrix_path)
     plt.show()
 
-    print(f"✅ Confusion Matrix saved at: {conf_matrix_path}")
-    print("✅ Test evaluation complete.")
+    print(f"Confusion Matrix saved at: {conf_matrix_path}")
+    print("Test evaluation complete.")
 
